@@ -111,7 +111,7 @@ KeyContainer* TreeNode::search(KeyType key) {
             foundKeys->push_back(keys.at(there));
             there++;
             //check rest of the keys down from there
-            while (there < keys.size() && key == keys.at(there).key)
+            while (there < keys.size() && keys.at(there).key == key )
             {
                 foundKeys->push_back(keys.at(there));
                 there++;
@@ -135,5 +135,37 @@ KeyContainer* TreeNode::search(KeyType key) {
 }
 
 KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
-
+    //there = where keyPair should be in this node
+    int there = findChildIndex(startKey);
+    //if this node is a leaf, try to find it here
+    if (leaf) {
+        if(there < keys.size() && keys.at(there).key >= startKey)
+        {
+            //make a new keyContainer
+            KeyContainer* foundKeys = new KeyContainer;
+            //stick the found key in it
+            foundKeys->push_back(keys.at(there));
+            there++;
+            //check rest of the keys down from there
+            while (there < keys.size() && keys.at(there).key <= endKey)
+            {
+                foundKeys->push_back(keys.at(there));
+                there++;
+            }
+            if ( there == keys.size() && siblingRight != NULL ) {
+                KeyContainer* siblingKeys = siblingRight->search(keys.at(there-1).key, endKey);
+                if ( siblingKeys != NULL )
+                    foundKeys->insert(foundKeys->end(), siblingKeys->begin(), siblingKeys->end());
+                delete siblingKeys;
+            }
+            return foundKeys;
+        }
+        else {
+            return NULL;
+        }
+    }
+    else {
+        TreeNode* child = children.at(there);
+        child->search(startKey, endKey);
+    }
 }

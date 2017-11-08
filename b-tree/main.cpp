@@ -77,6 +77,14 @@ int main(int argc, char** argv) {
     else
         cout << "not found";
     cout << endl;
+    delete results;
+    results = tree.root->search(0,15000);
+    if ( results != NULL )
+        for ( int i = 0; i < results->size(); i++ )
+            cout << "(" << results->at(i).key << "," << results->at(i).data << "), ";
+    else
+        cout << "not found";
+    cout << endl;
     return 0;
 }
 
