@@ -46,6 +46,8 @@ public:
     int findChildIndex(KeyType key);
     void insertPair(KeyPair keyPair);
     void split(TreeNode* parent, int index);
+    KeyContainer* search(KeyType key);
+    KeyContainer* search(KeyType startKey, KeyType endKey);
 private:
 };
 

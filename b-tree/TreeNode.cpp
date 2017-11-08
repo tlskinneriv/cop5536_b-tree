@@ -98,3 +98,42 @@ void TreeNode::insertPair(KeyPair keyPair) {
     }
 }
 
+KeyContainer* TreeNode::search(KeyType key) {
+    //there = where keyPair should be in this node
+    int there = findChildIndex(key);
+    //if this node is a leaf, try to find it here
+    if (leaf) {
+        if(there < keys.size() && keys.at(there).key == key)
+        {
+            //make a new keyContainer
+            KeyContainer* foundKeys = new KeyContainer;
+            //stick the found key in it
+            foundKeys->push_back(keys.at(there));
+            there++;
+            //check rest of the keys down from there
+            while (there < keys.size() && key == keys.at(there).key)
+            {
+                foundKeys->push_back(keys.at(there));
+                there++;
+            }
+            if ( there == keys.size() && siblingRight != NULL ) {
+                KeyContainer* siblingKeys = siblingRight->search(key);
+                if ( siblingKeys != NULL )
+                    foundKeys->insert(foundKeys->end(), siblingKeys->begin(), siblingKeys->end());
+                delete siblingKeys;
+            }
+            return foundKeys;
+        }
+        else {
+            return NULL;
+        }
+    }
+    else {
+        TreeNode* child = children.at(there);
+        child->search(key);
+    }
+}
+
+KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
+
+}
