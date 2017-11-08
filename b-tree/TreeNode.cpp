@@ -36,8 +36,6 @@ TreeNode::~TreeNode() {
 }
 
 int TreeNode::findChildIndex(KeyPair _keyPair) {
-    std::cout << "starting find child" << std::endl;
-    std::cout << "size of keys " << keys.size() << std::endl;
     int i = 0;
     while ( i < keys.size() && _keyPair.key > keys.at(i).key ) {
         i++;
@@ -90,17 +88,12 @@ void TreeNode::split(TreeNode* parent, int index) {
     //split down the middle = (floor(maxSize()/2))
     int middle = floor(maxKeys+1/2);
     KeyPair parentPair = keys.at(middle-1);
-    std::cout << "  in split parent pair key = " << parentPair.key << std::endl;
     //new node has middle to maxSize-1
     TreeNode* newNode = new TreeNode(maxKeys+1);
     newNode->leaf = leaf;
-    std::cout << "  in split new node is leaf? " << newNode->leaf << std::endl;
-    std::cout << "  in split after setting leaf" << std::endl;
     newNode->keys = KeyContainer(keys.begin()+middle,keys.end());
-    std::cout << "  in split after setting new node keys" << std::endl;
     //oldNode has 0 to middle-2
     keys = KeyContainer(keys.begin(),keys.begin()+middle-1);
-    std::cout << "  in split after setting old node keys" << std::endl;
     //check if not a leaf
     if(!leaf) {
         //copy children from old node half to new node
@@ -116,7 +109,6 @@ void TreeNode::split(TreeNode* parent, int index) {
 void TreeNode::insertPair(KeyPair keyPair) {
     //there = where keyPair should go in this node
     int there = findChildIndex(keyPair);
-    std::cout << "there = " << there << std::endl;
     //if this node is a leaf, insert it there
     if (leaf) keys.insert(keys.begin()+there, keyPair);
     //else

@@ -35,9 +35,9 @@ int main(int argc, char** argv) {
         float random = (float)(rand() % 500 +1);
         cout << endl << "**Starting insert " << i << " (" << random << ")**" << endl;
         tree.insert(random, "data");
-        cout << endl << "**Tree data**" << endl;
+//        cout << endl << "**Tree data**" << endl;
 //        printNode(tree.root, 0);
-        cout << endl << "-------------------------------------" << endl;
+//        cout << endl << "-------------------------------------" << endl;
     }
     // print final tree in inorder
     printInorder(tree.root);

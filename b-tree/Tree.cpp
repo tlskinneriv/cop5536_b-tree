@@ -52,16 +52,13 @@ void Tree::insert(KeyType key, DataType data)
     TreeNode* existingRoot = root;
     //there = where keyPair should go in this node
     existingRoot->insertPair(pair);
-    std::cout << "got past root insert" << std::endl;
     if(existingRoot->keys.size() > existingRoot->maxKeys)
     {    
         TreeNode* newRoot = new TreeNode(existingRoot->maxKeys+1);
         newRoot->leaf = false;
         newRoot->children.insert(newRoot->children.begin(), existingRoot);
         //make a new node split the original root
-        std::cout << "just before split" << std::endl;
         existingRoot->split(newRoot, 0);
-        std::cout << "just after split" << std::endl;
         root = newRoot;
     }
 }
