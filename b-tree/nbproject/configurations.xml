@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>KeyContainer.h</itemPath>
       <itemPath>Tree.h</itemPath>
       <itemPath>TreeNode.h</itemPath>
     </logicalFolder>
@@ -15,7 +14,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>KeyContainer.cpp</itemPath>
       <itemPath>Tree.cpp</itemPath>
       <itemPath>TreeNode.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -42,10 +40,6 @@
       </toolsSet>
       <compileType>
       </compileType>
-      <item path="KeyContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="KeyContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Tree.h" ex="false" tool="3" flavor2="0">
@@ -77,10 +71,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="KeyContainer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="KeyContainer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Tree.h" ex="false" tool="3" flavor2="0">

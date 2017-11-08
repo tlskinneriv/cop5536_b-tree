@@ -15,23 +15,41 @@
 #define TREENODE_H
 
 #include <cstdlib>
-#include "KeyContainer.h"
+#include <vector>
+#include <string>
+
+typedef struct keyPair KeyPair;
+typedef float KeyType;
+typedef std::string DataType;
+struct keyPair {
+    KeyType key;
+    DataType data;
+};
+typedef std::vector<class TreeNode *> ChildContainer;
+typedef std::vector<struct keyPair> KeyContainer;
 
 class TreeNode {
 public:
-    TreeNode(int _maxKeys);
+//    constructor destructor functions
+    TreeNode(int degree);
     TreeNode(const TreeNode& orig);
     virtual ~TreeNode();
-    static void insert(KeyPair _keyPair, TreeNode* _np);
-    void insertNonFull(KeyPair _keyPair);
-    void split(TreeNode* parent, int index);
-    KeyContainer* keys;
-    TreeNode** children; //array of pointers to children
+//    properties
     bool leaf; //whether of not tree is leaf
+    int maxKeys;
+    KeyContainer keys;
+    ChildContainer children;
     TreeNode* siblingLeft;
     TreeNode* siblingRight;
+//    functions
     int findChildIndex(KeyPair _keyPair);
+    void insertPair(KeyPair _keyPair);
+    void split(TreeNode* parent, int index);
 private:
+//    static void insert(KeyPair _keyPair, TreeNode* _np);
+//    void insertNonFull(KeyPair _keyPair);
+//    void checkOverfull(TreeNode* _parent);
+//    void newSplit();
 };
 
 #endif /* TREENODE_H */
