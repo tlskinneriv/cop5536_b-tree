@@ -6,7 +6,8 @@
 
 /* 
  * File:   main.cpp
- * Author: thomas
+ * Author: Thomas Skinner
+ * Purpose: call and test the "Tree" class
  *
  * Created on October 22, 2017, 5:47 PM
  */
@@ -29,7 +30,7 @@ std::string tabs(int count);
  * 
  */
 int main(int argc, char** argv) {
-    Tree tree = Tree(4);
+    Tree tree = Tree(2);
     srand(time(NULL));
     for ( int i = 0; i < NUM_TESTS; i++) {
         float random = (float)(rand() % 500 +1);

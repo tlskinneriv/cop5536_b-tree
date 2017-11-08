@@ -6,7 +6,8 @@
 
 /* 
  * File:   TreeNode.cpp
- * Author: thomas
+ * Author: Thomas Skinner
+ * Purpose: implement the "TreeNode" class
  * 
  * Created on October 22, 2017, 5:50 PM
  */

@@ -6,7 +6,8 @@
 
 /* 
  * File:   Tree.h
- * Author: thomas
+ * Author: Thomas Skinner
+ * Purpose: implement the "Tree" class
  *
  * Created on October 24, 2017, 9:17 PM
  */
