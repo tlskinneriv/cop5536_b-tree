@@ -48,18 +48,30 @@ void TreeNode::split(TreeNode* parent, int index) {
     //split down the middle = (floor(maxSize()/2))
     int middle = floor(maxKeys+1/2);
     KeyPair parentPair = keys.at(middle-1);
+    //parent pair will include key only
+    parentPair.data = "";
     //new node has middle to maxSize-1
     TreeNode* newNode = new TreeNode(maxKeys+1);
     newNode->leaf = leaf;
-    newNode->keys = KeyContainer(keys.begin()+middle,keys.end());
+//    newNode->keys = KeyContainer(keys.begin()+middle,keys.end());
+    //get middle-1 key as well for B+-tree structure
+    newNode->keys = KeyContainer(keys.begin()+middle-1,keys.end()); 
     //oldNode has 0 to middle-2
-    keys = KeyContainer(keys.begin(),keys.begin()+middle-1);
+    keys = KeyContainer(keys.begin(),keys.begin()+middle-1); 
     //check if not a leaf
     if(!leaf) {
         //copy children from old node half to new node
         newNode->children = ChildContainer(children.begin()+middle,children.end());
         children = ChildContainer(children.begin(), children.begin()+middle);
     }
+    //assign sibling pointers to this and newNode
+    if(siblingRight != NULL)
+    {
+        siblingRight->siblingLeft = newNode;
+        newNode->siblingRight = siblingRight;
+    }
+    siblingRight = newNode;
+    newNode->siblingLeft = this;
     //insert middle-1 into parent
     parent->keys.insert(parent->keys.begin()+index, parentPair);
     //insert new node into parent

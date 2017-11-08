@@ -30,7 +30,7 @@ std::string tabs(int count);
  * 
  */
 int main(int argc, char** argv) {
-    Tree tree = Tree(3);
+    Tree tree = Tree(4);
     srand(time(NULL));
     for ( int i = 0; i < NUM_TESTS; i++) {
         float random = (float)(rand() % 500 +1);
@@ -41,16 +41,18 @@ int main(int argc, char** argv) {
         cout << endl << "-------------------------------------" << endl;
     }
     // print final tree in inorder
-    cout << "\nContent of all nodes in inorder:" << endl;
-    printInorder(tree.root);
+//    cout << "\nContent of all nodes in inorder:" << endl;
+//    printInorder(tree.root);
     return 0;
 }
 
 void printNode(TreeNode* node, int level) {
     for ( int j = 0; j < node->keys.size(); j++ )
-        cout << tabs(level) << node->keys.at(j).key << endl;
+        cout << tabs(level) << node->keys.at(j).key << ":" << node->keys.at(j).data << endl;
     for ( int j = node->keys.size(); j < node->maxKeys; j++ )
         cout << tabs(level) << "(empty)" << endl;
+    cout << tabs(level) << "ls:" << node->siblingLeft << endl;
+    cout << tabs(level) << "rs:" << node->siblingRight << endl;
     for ( int j = 0; j < node->children.size(); j++ ) {
         TreeNode* child = node->children[j];
         if ( child != NULL ) {
