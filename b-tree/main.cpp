@@ -25,6 +25,7 @@ using namespace std;
 
 void printNode(TreeNode* node, int level);
 void printInorder(TreeNode* node);
+void printAlongLinkedList(TreeNode* node);
 std::string tabs(int count);
 /*
  * 
@@ -33,9 +34,10 @@ int main(int argc, char** argv) {
     Tree tree = Tree(4);
     srand(time(NULL));
     for ( int i = 0; i < NUM_TESTS; i++) {
-        float random = (float)(rand() % 500 +1);
+        float random = (float)(rand() % 99 +33);
+        string randData(1,(char)random);
         cout << endl << "**Starting insert " << i << " (" << random << ")**" << endl;
-        tree.insert(random, "data");
+        tree.insert(random, randData);
         cout << endl << "**Tree data**" << endl;
         printNode(tree.root, 0);
         cout << endl << "-------------------------------------" << endl;
@@ -43,6 +45,7 @@ int main(int argc, char** argv) {
     // print final tree in inorder
 //    cout << "\nContent of all nodes in inorder:" << endl;
 //    printInorder(tree.root);
+    printAlongLinkedList(tree.root);
     return 0;
 }
 
@@ -72,6 +75,19 @@ void printInorder(TreeNode* node) {
     }
     if ( node->children.size() > 0 )
             printInorder(node->children.at(node->keys.size()));
+}
+
+void printAlongLinkedList(TreeNode* node) {
+    if ( node->children.size() > 0 )
+        printAlongLinkedList(node->children.at(0));
+    else {
+        while ( node != NULL )
+        {
+            for ( int i = 0; i < node->keys.size(); i++ )
+                std::cout << node->keys.at(i).key << ":" << node->keys.at(i).data << endl;
+            node = node->siblingRight;
+        }
+    }
 }
 
 std::string tabs(int count) {
