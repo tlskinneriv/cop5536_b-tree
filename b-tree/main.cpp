@@ -21,7 +21,7 @@
 #include "Tree.h"
 using namespace std;
 
-#define NUM_TESTS 100
+#define NUM_TESTS 10
 
 void printNode(TreeNode* node, int level);
 void printInorder(TreeNode* node);
@@ -30,17 +30,18 @@ std::string tabs(int count);
  * 
  */
 int main(int argc, char** argv) {
-    Tree tree = Tree(2);
+    Tree tree = Tree(3);
     srand(time(NULL));
     for ( int i = 0; i < NUM_TESTS; i++) {
         float random = (float)(rand() % 500 +1);
         cout << endl << "**Starting insert " << i << " (" << random << ")**" << endl;
         tree.insert(random, "data");
-//        cout << endl << "**Tree data**" << endl;
-//        printNode(tree.root, 0);
-//        cout << endl << "-------------------------------------" << endl;
+        cout << endl << "**Tree data**" << endl;
+        printNode(tree.root, 0);
+        cout << endl << "-------------------------------------" << endl;
     }
     // print final tree in inorder
+    cout << "\nContent of all nodes in inorder:" << endl;
     printInorder(tree.root);
     return 0;
 }

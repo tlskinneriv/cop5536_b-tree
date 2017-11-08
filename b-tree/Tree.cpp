@@ -16,7 +16,13 @@
 #include <iostream>
 
 Tree::Tree(int degree) {
-    root = new TreeNode(degree);
+    if ( degree < 3 ) {
+        std::cout << "Degree " << degree << " is less than the minimum degree 3. Aborting." << std::endl;
+        std::exit(1); //exit code 1 is wrong degree; minimum degree 3 for B-Tree
+        root = NULL;
+    }
+    else
+        root = new TreeNode(degree);
 }
 
 Tree::Tree(const Tree& orig) {
