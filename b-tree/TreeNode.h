@@ -36,7 +36,7 @@ public:
     TreeNode(const TreeNode& orig);
     virtual ~TreeNode();
 //    properties
-    bool leaf; //whether of not tree is leaf
+    bool leaf; //whether of not node is leaf
     int maxKeys;
     KeyContainer keys;
     ChildContainer children;
@@ -47,10 +47,6 @@ public:
     void insertPair(KeyPair _keyPair);
     void split(TreeNode* parent, int index);
 private:
-//    static void insert(KeyPair _keyPair, TreeNode* _np);
-//    void insertNonFull(KeyPair _keyPair);
-//    void checkOverfull(TreeNode* _parent);
-//    void newSplit();
 };
 
 #endif /* TREENODE_H */

@@ -31,28 +31,6 @@ Tree::Tree(const Tree& orig) {
 Tree::~Tree() {
 }
 
-//void Tree::insert(KeyType key, DataType data) {
-//    KeyPair pair = { .key = key, .data = data };
-//    TreeNode* existingNode = root;
-//    if ( root->keys->size() == root->keys->maxSize() ) {
-//        std::cout << "Root is full, so split!" << std::endl;
-//        TreeNode* newNode = new TreeNode(root->keys->maxSize());
-//        root = newNode;
-//        newNode->leaf = false;
-//        newNode->children[0] = existingNode;
-//        std::cout << "Splitting root..." << std::endl;
-//        newNode->children[0]->split(newNode, 0);
-//        std::cout << "Inserting into new root..." << std::endl;
-//        newNode->insertNonFull(pair);
-//    }
-//    else {
-//        std::cout << "Root not full, insert normally" << std:: endl;
-////        existingNode->insertNonFull(pair);
-//        TreeNode* newNode = new TreeNode(root->keys->maxSize());
-//        existingNode->insertPair(newNode, pair);
-//    }
-//}
-
 void Tree::insert(KeyType key, DataType data) 
 {
     KeyPair pair = { .key = key, .data = data };
