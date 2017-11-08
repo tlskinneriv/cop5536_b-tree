@@ -36,9 +36,9 @@ TreeNode::~TreeNode() {
     children.clear();
 }
 
-int TreeNode::findChildIndex(KeyPair _keyPair) {
+int TreeNode::findChildIndex(KeyType key) {
     int i = 0;
-    while ( i < keys.size() && _keyPair.key > keys.at(i).key ) {
+    while ( i < keys.size() && key > keys.at(i).key ) {
         i++;
     }
     return i;
@@ -53,25 +53,28 @@ void TreeNode::split(TreeNode* parent, int index) {
     //new node has middle to maxSize-1
     TreeNode* newNode = new TreeNode(maxKeys+1);
     newNode->leaf = leaf;
-//    newNode->keys = KeyContainer(keys.begin()+middle,keys.end());
-    //get middle-1 key as well for B+-tree structure
-    newNode->keys = KeyContainer(keys.begin()+middle-1,keys.end()); 
+    newNode->keys = KeyContainer(keys.begin()+middle,keys.end());
     //oldNode has 0 to middle-2
-    keys = KeyContainer(keys.begin(),keys.begin()+middle-1); 
+//    keys = KeyContainer(keys.begin(),keys.begin()+middle-1); 
+    //get middle-1 key as well for B+-tree structure
+    keys = KeyContainer(keys.begin(),keys.begin()+middle); 
     //check if not a leaf
     if(!leaf) {
         //copy children from old node half to new node
         newNode->children = ChildContainer(children.begin()+middle,children.end());
         children = ChildContainer(children.begin(), children.begin()+middle);
     }
-    //assign sibling pointers to this and newNode
-    if(siblingRight != NULL)
+    //assign sibling pointers to this and newNode if they are leaves
+    if (leaf)
     {
-        siblingRight->siblingLeft = newNode;
-        newNode->siblingRight = siblingRight;
+        if(siblingRight != NULL)
+        {
+            siblingRight->siblingLeft = newNode;
+            newNode->siblingRight = siblingRight;
+        }
+        siblingRight = newNode;
+        newNode->siblingLeft = this;
     }
-    siblingRight = newNode;
-    newNode->siblingLeft = this;
     //insert middle-1 into parent
     parent->keys.insert(parent->keys.begin()+index, parentPair);
     //insert new node into parent
@@ -80,7 +83,7 @@ void TreeNode::split(TreeNode* parent, int index) {
 
 void TreeNode::insertPair(KeyPair keyPair) {
     //there = where keyPair should go in this node
-    int there = findChildIndex(keyPair);
+    int there = findChildIndex(keyPair.key);
     //if this node is a leaf, insert it there
     if (leaf) keys.insert(keys.begin()+there, keyPair);
     //else

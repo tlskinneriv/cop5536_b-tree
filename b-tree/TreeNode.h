@@ -43,8 +43,8 @@ public:
     TreeNode* siblingLeft;
     TreeNode* siblingRight;
 //    functions
-    int findChildIndex(KeyPair _keyPair);
-    void insertPair(KeyPair _keyPair);
+    int findChildIndex(KeyType key);
+    void insertPair(KeyPair keyPair);
     void split(TreeNode* parent, int index);
 private:
 };
