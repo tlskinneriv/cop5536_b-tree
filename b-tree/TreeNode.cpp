@@ -139,7 +139,7 @@ KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
     int there = findChildIndex(startKey);
     //if this node is a leaf, try to find it here
     if (leaf) {
-        if(there < keys.size() && keys.at(there).key >= startKey)
+        if(there < keys.size() && keys.at(there).key >= startKey && keys.at(there).key <= endKey)
         {
             //make a new keyContainer
             KeyContainer* foundKeys = new KeyContainer;

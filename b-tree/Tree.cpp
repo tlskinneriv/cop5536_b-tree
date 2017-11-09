@@ -66,7 +66,7 @@ void Tree::search(KeyType startKey, KeyType endKey) {
     if ( results != NULL )
         for ( int i = 0; i < results->size(); i++ )
             if ( i == results->size()-1 )
-                std::cout << "(" << results->at(i).key << "," << results->at(i).data << std::endl;
+                std::cout << "(" << results->at(i).key << "," << results->at(i).data << ")" << std::endl;
             else
                 std::cout << "(" << results->at(i).key << "," << results->at(i).data << "), ";
     else
@@ -75,11 +75,23 @@ void Tree::search(KeyType startKey, KeyType endKey) {
 }
 
 void Tree::printTree() {
+    std::cout << std::endl;
+    std::cout << "----------Tree Structure----------" << std::endl;
+    std::cout << std::endl;
     root->printNode(0);
+    std::cout << std::endl;
+    std::cout << "----------------------------------" << std::endl;
+    std::cout << std::endl;
 }
 
 void Tree::printData() {
+    std::cout << std::endl;
+    std::cout << "----------Tree Data----------" << std::endl;
+    std::cout << std::endl;
     root->printNodeDataFromHere();
+    std::cout << std::endl;
+    std::cout << "-----------------------------" << std::endl;
+    std::cout << std::endl;
 }
 
 
