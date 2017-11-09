@@ -144,6 +144,9 @@ void processCommands(CommandList* commands, Tree* tree) {
 }
 
 void printCommands (CommandList* commands) {
+    std::cerr << std::endl;
+    std::cerr << "----------File Commands----------" << std::endl;
+    std::cerr << std::endl;
     for ( int i = 0; i < commands->size(); i++ )
     {
         switch(commands->at(i).func) {
@@ -160,6 +163,9 @@ void printCommands (CommandList* commands) {
         }
         std::cerr << ")" << std::endl;
     }
+    std::cerr << std::endl;
+    std::cerr << "---------------------------------" << std::endl;
+    std::cerr << std::endl;
 }
 /*
  * 
@@ -222,8 +228,8 @@ int main(int argc, char** argv) {
     processCommands(commands, tree);
     
     //show output here
-//    tree->printTree();
-//    tree->printData();
+    tree->printTree();
+    tree->printData();
     
     //cleanup here
     input->~vector();

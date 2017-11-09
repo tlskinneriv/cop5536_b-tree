@@ -75,23 +75,23 @@ void Tree::search(KeyType startKey, KeyType endKey) {
 }
 
 void Tree::printTree() {
-    std::cout << std::endl;
-    std::cout << "----------Tree Structure----------" << std::endl;
-    std::cout << std::endl;
+    std::cerr << std::endl;
+    std::cerr << "----------Tree Structure----------" << std::endl;
+    std::cerr << std::endl;
     root->printNode(0);
-    std::cout << std::endl;
-    std::cout << "----------------------------------" << std::endl;
-    std::cout << std::endl;
+    std::cerr << std::endl;
+    std::cerr << "----------------------------------" << std::endl;
+    std::cerr << std::endl;
 }
 
 void Tree::printData() {
-    std::cout << std::endl;
-    std::cout << "----------Tree Data----------" << std::endl;
-    std::cout << std::endl;
+    std::cerr << std::endl;
+    std::cerr << "----------Tree Data----------" << std::endl;
+    std::cerr << std::endl;
     root->printNodeDataFromHere();
-    std::cout << std::endl;
-    std::cout << "-----------------------------" << std::endl;
-    std::cout << std::endl;
+    std::cerr << std::endl;
+    std::cerr << "-----------------------------" << std::endl;
+    std::cerr << std::endl;
 }
 
 

@@ -179,29 +179,28 @@ std::string tabs(int count) {
 
 void TreeNode::printNode(int level) {
     for ( int j = 0; j < keys.size(); j++ )
-        std::cout << tabs(level) << keys.at(j).key << ":" << keys.at(j).data << std::endl;
+        std::cerr << tabs(level) << keys.at(j).key << ":" << keys.at(j).data << std::endl;
     for ( int j = keys.size(); j < maxKeys; j++ )
-        std::cout << tabs(level) << "(empty)" << std::endl;
-    std::cout << tabs(level) << "ls:" << siblingLeft << std::endl;
-    std::cout << tabs(level) << "rs:" << siblingRight << std::endl;
+        std::cerr << tabs(level) << "(empty)" << std::endl;
+    std::cerr << tabs(level) << "ls:" << siblingLeft << std::endl;
+    std::cerr << tabs(level) << "rs:" << siblingRight << std::endl;
     for ( int j = 0; j < children.size(); j++ ) {
         TreeNode* child = children[j];
         if ( child != NULL ) {
-            std::cout << tabs(level) << child << std::endl; 
+            std::cerr << tabs(level) << child << std::endl; 
             child->printNode(level+1);
         }
-        else std::cout << tabs(level)<< "NULL" << std::endl;
+        else std::cerr << tabs(level)<< "NULL" << std::endl;
     }
 }
 
 void TreeNode::printNodeDataFromHere() {
     if ( children.size() > 0 ) {
-        std::cout << "go to next child" << std::endl;
         children.at(0)->printNodeDataFromHere();
     }
     else {
         for ( int i = 0; i < keys.size(); i++ )
-            std::cout << keys.at(i).key << ":" << keys.at(i).data << std::endl;
+            std::cerr << keys.at(i).key << ":" << keys.at(i).data << std::endl;
         if ( siblingRight != NULL )
             siblingRight->printNodeDataFromHere();
     }
