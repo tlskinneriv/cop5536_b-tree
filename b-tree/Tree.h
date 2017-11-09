@@ -19,13 +19,19 @@
 
 class Tree {
 public:
+//    constructors/destructors
     Tree(int degree);
     Tree(const Tree& orig);
     virtual ~Tree();
+//    functions
     void insert(KeyType key, DataType data);
-    TreeNode* root;
+    void search(KeyType key);
+    void search(KeyType startKey, KeyType endKey);
+    void printTree();
+    void printData();
 private:
-    
+    //    properties
+    TreeNode* root;
 };
 
 #endif /* TREE_H */

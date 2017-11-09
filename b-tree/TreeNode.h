@@ -48,6 +48,8 @@ public:
     void split(TreeNode* parent, int index);
     KeyContainer* search(KeyType key);
     KeyContainer* search(KeyType startKey, KeyType endKey);
+    void printNode(int level);
+    void printNodeDataFromHere();
 private:
 };
 
