@@ -25,7 +25,7 @@ using namespace std;
 #include "TreeNode.h"
 #include "Tree.h"
 
-
+/* Define types for parsing commands */
 typedef std::vector<std::string> StringList;
 typedef enum commandTypes {
     unknown = 0,
@@ -40,6 +40,12 @@ typedef struct command {
 } Command;
 typedef std::vector<Command> CommandList;
 
+/**
+ * Reads input from an input file
+ * @param inputFilename Name of file to read
+ * @return Each line of 'inputFilename' in a pointer to a "StringList", or if the file 
+ * cannot be read, 'NULL'
+ */
 StringList* readInput(std::string inputFilename)
 {
     std::string line;
@@ -56,6 +62,13 @@ StringList* readInput(std::string inputFilename)
     }
 }
 
+/**
+ * Splits 'str' by the delimeter 'delim' and trims leading and trailing 
+ * spaces
+ * @param str String to split
+ * @param delim Delimeter to use for splitting
+ * @return "StringList" with each part of 'str'
+ */
 StringList splitString(const std::string& str, char delim){
     StringList subStrings;
     std::string subString;
@@ -67,6 +80,11 @@ StringList splitString(const std::string& str, char delim){
     return subStrings;
 }
 
+/**
+ * Gets the degree from 'input'
+ * @param input Input read from file
+ * @return Degree read from file
+ */
 int parseDegree(StringList* input) {
     int degree;
     std::istringstream(input->at(0)) >> degree;
@@ -74,6 +92,11 @@ int parseDegree(StringList* input) {
     return degree;
 }
 
+/**
+ * Parses commands from 'input' and puts them into a "CommandList"
+ * @param input Input read from file
+ * @return "CommandList" containing all valid commands
+ */
 CommandList* parseCommands(StringList* input) {
     if ( input->size() < 1 )
         return NULL;
@@ -99,10 +122,18 @@ CommandList* parseCommands(StringList* input) {
             else
                 std::cerr << "Unknown function/command \"" << input->at(i) << "\" found in input file." << std::endl;
         }
-        return commands;
+        if ( commands->size() < 1 )
+            return NULL;
+        else
+            return commands;
     }
 }
 
+/**
+ * Processes the commands in 'commands' against 'tree'
+ * @param commands Commands to run
+ * @param tree Tree to run commands against
+ */
 void processCommands(CommandList* commands, Tree* tree) {
     Function f;
     StringList a;
@@ -143,6 +174,10 @@ void processCommands(CommandList* commands, Tree* tree) {
     }
 }
 
+/**
+ * Prints the content of the valid commands read from the file to cerr
+ * @param commands "CommandList" containing commands read from file
+ */
 void printCommands (CommandList* commands) {
     std::cerr << std::endl;
     std::cerr << "----------File Commands----------" << std::endl;
@@ -167,23 +202,35 @@ void printCommands (CommandList* commands) {
     std::cerr << "---------------------------------" << std::endl;
     std::cerr << std::endl;
 }
-/*
- * 
+
+/**
+ * Run commands passed in an input file against a B+-Tree with degree specified 
+ * by the input file. All command results are output to std::cout, which has 
+ * been redirected to the output file './output.txt'. An input file with valid 
+ * degree and commands must be input for this program to successfully output 
+ * data.
+ * @return Any value other than '0' is considered an error. The following return
+ * values are known errors:
+ * 1) Input file not passed via command line or not the right number of 
+ *    arguments passed
+ * 2) Input file cannot be opened
+ * 3) Input file is not formatted correctly (see error output)
+ * 4) The output file cannot be opened
+ * 5) The degree specified in the input file is too small
+ * 6) No valid commands were specified in the input file
  */
 int main(int argc, char** argv) {
-    int errNo = 1;
     // check to make sure an input file was provided
     if ( argc != 2 ) {
         std::cerr << "Usage: " << argv[0] << " <inputFile>" << std::endl;
-        return errNo;
+        return 1;
     }
-    errNo++;
     
     // read in file contents
     StringList* input = readInput(argv[1]);
     if ( input == NULL ){
         std::cerr << "Unable to open input file: \"" << argv[1] << "\"" << std::endl;
-        return errNo;
+        return 2;
     }
     else if ( input->size() < 1 ) {
         std::cerr << "Input file not formatted correctly. File should have the format:" << std::endl;
@@ -191,49 +238,50 @@ int main(int argc, char** argv) {
         std::cerr << "  <degreeOfTree>" << std::endl;
         std::cerr << "  [<command>]" << std::endl;
         std::cerr << "  [<command>]..." << std::endl;
-        return errNo;
+        return 3;
     }
-    errNo++;
     
     // make sure we can touch the output file
     std::string outFilename = "./output.txt";
-    std::ofstream cout(outFilename);
-    if ( cout.is_open() ) {
-        std::cout.rdbuf(cout.rdbuf());
+    std::ofstream output(outFilename);
+    if ( output.is_open() ) {
+        std::cout.rdbuf(output.rdbuf());
     }
     else {
         std::cerr << "Unable to open output file: \"" << outFilename << "\"" << std::endl;
-        return errNo;
+        return 4;
     }
-    errNo++;
     
     // parse degree of tree from input
     int treeDegree = parseDegree(input);
+    if ( treeDegree <= 0 ) {
+        std::cerr << "Tree degree not specified or is invalid" << std::endl;
+        return 5;
+    }
     if ( treeDegree < 3 ) {
         std::cerr << "Tree degree \"" << treeDegree << "\" is less than the minimum \"3\"" << std::endl;
-        return errNo;
+        return 5;
     }
-    errNo++;
     
     // parse commands from rest of input
     CommandList* commands = parseCommands(input);
     if ( commands == NULL ) {
         std::cerr << "No commands specified in the input file." << std::endl;
-        return errNo;
+        return 6;
     }
-    printCommands(commands);
+//    printCommands(commands);
     
     // if we're here, everything checks out, and we can continue
     Tree* tree = new Tree(treeDegree);
     processCommands(commands, tree);
     
     //show output here
-    tree->printTree();
-    tree->printData();
+//    tree->printTree();
+//    tree->printData();
     
     //cleanup here
-    input->~vector();
-    commands->~vector();
-    tree->~Tree();
+    delete input;
+    delete commands;
+    delete tree;
     return 0;
 }

@@ -25,10 +25,8 @@ Tree::Tree(int degree) {
         root = new TreeNode(degree);
 }
 
-Tree::Tree(const Tree& orig) {
-}
-
 Tree::~Tree() {
+    delete root;
 }
 
 void Tree::insert(KeyType key, DataType data) 
