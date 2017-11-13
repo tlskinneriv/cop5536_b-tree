@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 
+/* Define types for node contents */
 typedef struct keyPair KeyPair;
 typedef float KeyType;
 typedef std::string DataType;
