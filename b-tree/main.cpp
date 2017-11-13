@@ -206,7 +206,7 @@ void printCommands (CommandList* commands) {
 /**
  * Run commands passed in an input file against a B+-Tree with degree specified 
  * by the input file. All command results are output to std::cout, which has 
- * been redirected to the output file './output.txt'. An input file with valid 
+ * been redirected to the output file './output_file.txt'. An input file with valid 
  * degree and commands must be input for this program to successfully output 
  * data.
  * @return Any value other than '0' is considered an error. The following return
@@ -242,7 +242,7 @@ int main(int argc, char** argv) {
     }
     
     // make sure we can touch the output file
-    std::string outFilename = "./output.txt";
+    std::string outFilename = "./output_file.txt";
     std::ofstream output(outFilename);
     if ( output.is_open() ) {
         std::cout.rdbuf(output.rdbuf());
