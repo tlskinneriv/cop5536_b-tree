@@ -130,7 +130,64 @@ CommandList* parseCommands(StringList* input) {
 }
 
 /**
- * Processes the commands in 'commands' against 'tree'
+ * Converts a "Command" to string.
+ * @param command Command to convert
+ * @return command converted to string
+ */
+std::string getCommandString (Command command) {
+    std::string commandString;
+    std::stringstream stream;
+    switch(command.func) {
+        case Function::insert : stream << "insert"; break;
+        case Function::search : stream << "search"; break;
+        default : stream << "unkonwn"; break;
+    }
+
+    stream << "(";
+    for ( int j = 0; j < command.args.size(); j++ ){
+        stream << command.args.at(j);
+        if ( j != command.args.size()-1 )
+            stream << ",";
+    }
+    stream << ")";
+    stream >> commandString;
+    return commandString;
+}
+
+/**
+ * Prints the content of the valid commands read from the file to cerr
+ * @param commands "CommandList" containing commands read from file
+ */
+void printCommands (CommandList* commands) {
+    std::cerr << std::endl;
+    std::cerr << "----------File Commands----------" << std::endl;
+    std::cerr << std::endl;
+    for ( int i = 0; i < commands->size(); i++ )
+    {
+        std::cerr << getCommandString(commands->at(i)) << std::endl;
+    }
+    std::cerr << std::endl;
+    std::cerr << "---------------------------------" << std::endl;
+    std::cerr << std::endl;
+}
+
+/**
+ * Compares 'startKey' and 'endKey' to determine whether the range is valid or
+ * not.
+ * @param startKey Beginning of range
+ * @param endKey End of range
+ * @return true if range is valid, false otherwise
+ */
+bool checkRangeKeys ( KeyType startKey, KeyType endKey )
+{
+    // do comparison of start and end keys here
+    if ( startKey <= endKey ) return true;
+    else return false;
+}
+
+/**
+ * Processes the commands in 'commands' against 'tree'. Outputs errors to 
+ * cerr.
  * @param commands Commands to run
  * @param tree Tree to run commands against
  */
@@ -162,7 +219,14 @@ void processCommands(CommandList* commands, Tree* tree) {
                     KeyType startKey, endKey;
                     std::istringstream(a.at(0)) >> startKey;
                     std::istringstream(a.at(1)) >> endKey;
-                    tree->search(startKey, endKey);
+                    if ( checkRangeKeys( startKey, endKey ) )
+                        tree->search(startKey, endKey);
+                    else {
+                        std::cerr << "Bad start & end keys; startKey > " 
+                            << "endKey for command \""
+                            << getCommandString(commands->at(i))
+                            << "\"; command not executed." << std::endl;
+                    }
                 }
                 else 
                     std::cerr << "Bad argument(s) for search command.";
@@ -174,34 +238,6 @@ void processCommands(CommandList* commands, Tree* tree) {
     }
 }
 
-/**
- * Prints the content of the valid commands read from the file to cerr
- * @param commands "CommandList" containing commands read from file
- */
-void printCommands (CommandList* commands) {
-    std::cerr << std::endl;
-    std::cerr << "----------File Commands----------" << std::endl;
-    std::cerr << std::endl;
-    for ( int i = 0; i < commands->size(); i++ )
-    {
-        switch(commands->at(i).func) {
-            case Function::insert : std::cerr << "insert"; break;
-            case Function::search : std::cerr << "search"; break;
-            default : std::cerr << "unkonwn"; break;
-        }
-        
-        std::cerr << "(";
-        for ( int j = 0; j < commands->at(i).args.size(); j++ ){
-            std::cerr << commands->at(i).args.at(j);
-            if ( j != commands->at(i).args.size()-1 )
-                std::cerr << ",";
-        }
-        std::cerr << ")" << std::endl;
-    }
-    std::cerr << std::endl;
-    std::cerr << "---------------------------------" << std::endl;
-    std::cerr << std::endl;
-}
 
 /**
  * Run commands passed in an input file against a B+-Tree with degree specified 
@@ -234,9 +270,9 @@ int main(int argc, char** argv) {
     }
     else if ( input->size() < 1 ) {
         std::cerr << "Input file not formatted correctly. File should have the format:" << std::endl;
-        std::cerr << "[inputFile.txt]" << std::endl;
+        std::cerr << "inputFile.txt" << std::endl;
         std::cerr << "  <degreeOfTree>" << std::endl;
-        std::cerr << "  [<command>]" << std::endl;
+        std::cerr << "  <command>" << std::endl;
         std::cerr << "  [<command>]..." << std::endl;
         return 3;
     }
