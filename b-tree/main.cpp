@@ -279,14 +279,14 @@ int main(int argc, char** argv) {
     
     // make sure we can touch the output file
     std::string outFilename = "./output_file.txt";
-    std::ofstream output(outFilename);
-    if ( output.is_open() ) {
-        std::cout.rdbuf(output.rdbuf());
-    }
-    else {
-        std::cerr << "Unable to open output file: \"" << outFilename << "\"" << std::endl;
-        return 4;
-    }
+//    std::ofstream output(outFilename);
+//    if ( output.is_open() ) {
+//        std::cout.rdbuf(output.rdbuf());
+//    }
+//    else {
+//        std::cerr << "Unable to open output file: \"" << outFilename << "\"" << std::endl;
+//        return 4;
+//    }
     
     // parse degree of tree from input
     int treeDegree = parseDegree(input);
