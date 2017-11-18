@@ -18,7 +18,7 @@
 Tree::Tree(int degree) {
     if ( degree < 3 ) {
         std::cout << "Degree " << degree << " is less than the minimum degree 3. Aborting." << std::endl;
-        std::exit(1); //exit code 1 is wrong degree; minimum degree 3 for B-Tree
+        std::exit(5); //exit code 5 is wrong degree; minimum degree 3 for B-Tree
         root = NULL;
     }
     else
