@@ -49,7 +49,7 @@ void Tree::insert(KeyType key, DataType data)
 void Tree::search(KeyType key) {
     KeyContainer* results = root->search(key);
     if ( results != NULL )
-        for ( int i = 0; i < results->size(); i++ )
+        for ( unsigned i = 0; i < results->size(); i++ )
             if ( i == results->size()-1 )
                 std::cout << results->at(i).data << std::endl;
             else
@@ -62,7 +62,7 @@ void Tree::search(KeyType key) {
 void Tree::search(KeyType startKey, KeyType endKey) {
     KeyContainer* results = root->search(startKey,endKey);
     if ( results != NULL )
-        for ( int i = 0; i < results->size(); i++ )
+        for ( unsigned i = 0; i < results->size(); i++ )
             if ( i == results->size()-1 )
                 std::cout << "(" << results->at(i).key << "," << results->at(i).data << ")" << std::endl;
             else

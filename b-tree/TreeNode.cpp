@@ -25,17 +25,17 @@ TreeNode::TreeNode(int degree) {
     children.reserve(degree);
     siblingLeft = NULL;
     siblingRight = NULL;
-    maxKeys = degree-1;
+    maxKeys = (unsigned)degree-1;
 }
 
 TreeNode::~TreeNode() {
     // delete all this nodes children before deleting itself
-    for ( int i = 0; i < children.size(); i++ )
+    for ( unsigned i = 0; i < children.size(); i++ )
         delete children[i];
 }
 
-int TreeNode::findChildIndex(KeyType key) {
-    int i = 0;
+unsigned TreeNode::findChildIndex(KeyType key) {
+    unsigned i = 0;
     // go down the key list to find where key should go
     while ( i < keys.size() && key > keys.at(i).key ) {
         i++;
@@ -99,7 +99,7 @@ void TreeNode::insertPair(KeyPair keyPair) {
 
 KeyContainer* TreeNode::search(KeyType key) {
     //there = where keyPair should be in this node
-    int there = findChildIndex(key);
+    unsigned there = findChildIndex(key);
     //if this node is a leaf, try to find it here
     if (leaf) {
         if(there < keys.size() && keys.at(there).key == key)
@@ -131,13 +131,13 @@ KeyContainer* TreeNode::search(KeyType key) {
     else {
         // if not a leaf, continue down the tree
         TreeNode* child = children.at(there);
-        child->search(key);
+        return child->search(key);
     }
 }
 
 KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
     //there = where keyPair should be in this node
-    int there = findChildIndex(startKey);
+    unsigned there = findChildIndex(startKey);
     //if this node is a leaf, try to find it here
     if (leaf) {
         if(there < keys.size() && keys.at(there).key >= startKey && keys.at(there).key <= endKey)
@@ -169,7 +169,7 @@ KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
     else {
         // move down the tree if not at a leaf
         TreeNode* child = children.at(there);
-        child->search(startKey, endKey);
+        return child->search(startKey, endKey);
     }
 }
 
@@ -188,10 +188,10 @@ std::string tabs(int count) {
 
 void TreeNode::printNode(int level) {
     // print all the keys in this node
-    for ( int j = 0; j < keys.size(); j++ )
+    for ( unsigned j = 0; j < keys.size(); j++ )
         std::cerr << tabs(level) << keys.at(j).key << ":" << keys.at(j).data << std::endl;
     // notate all the rest as empty
-    for ( int j = keys.size(); j < maxKeys; j++ )
+    for ( unsigned j = keys.size(); j < maxKeys; j++ )
         std::cerr << tabs(level) << "(empty)" << std::endl;
     // print the left sibling
     std::cerr << tabs(level) << "ls:" << siblingLeft << std::endl;
@@ -199,7 +199,7 @@ void TreeNode::printNode(int level) {
     std::cerr << tabs(level) << "rs:" << siblingRight << std::endl;
     // print all of this nodes children recursively, increasing the indentaiton 
     // level
-    for ( int j = 0; j < children.size(); j++ ) {
+    for ( unsigned j = 0; j < children.size(); j++ ) {
         TreeNode* child = children[j];
         if ( child != NULL ) {
             std::cerr << tabs(level) << child << std::endl; 
@@ -207,7 +207,7 @@ void TreeNode::printNode(int level) {
         }
     }
     // if some children aren't used, mark them as NULL
-    for ( int j = children.size(); j < maxKeys+1; j++ )
+    for ( unsigned j = children.size(); j < maxKeys+1; j++ )
         std::cerr << tabs(level) << "NULL" << std::endl;
 }
 
@@ -218,7 +218,7 @@ void TreeNode::printNodeDataFromHere() {
     }
     // print its contents and all of its siblings contents
     else {
-        for ( int i = 0; i < keys.size(); i++ )
+        for ( unsigned i = 0; i < keys.size(); i++ )
             std::cerr << keys.at(i).key << ":" << keys.at(i).data << std::endl;
         if ( siblingRight != NULL )
             siblingRight->printNodeDataFromHere();

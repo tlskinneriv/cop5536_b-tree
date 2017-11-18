@@ -104,7 +104,7 @@ CommandList* parseCommands(StringList* input) {
         CommandList* commands = new CommandList;
         regex commandRegex("([A-Za-z]+)\\((.*?)\\)");
         Function func;
-        for ( int i = 0 ; i < input->size(); i++ ) {
+        for ( unsigned i = 0 ; i < input->size(); i++ ) {
             smatch matches;
             regex_search(input->at(i), matches, commandRegex);
             if ( matches.size() == 3 ) { //matches at least contains full match, command, and args
@@ -144,7 +144,7 @@ std::string getCommandString (Command command) {
     }
 
     stream << "(";
-    for ( int j = 0; j < command.args.size(); j++ ){
+    for ( unsigned j = 0; j < command.args.size(); j++ ){
         stream << command.args.at(j);
         if ( j != command.args.size()-1 )
             stream << ",";
@@ -162,7 +162,7 @@ void printCommands (CommandList* commands) {
     std::cerr << std::endl;
     std::cerr << "----------File Commands----------" << std::endl;
     std::cerr << std::endl;
-    for ( int i = 0; i < commands->size(); i++ )
+    for ( unsigned i = 0; i < commands->size(); i++ )
     {
         std::cerr << getCommandString(commands->at(i)) << std::endl;
     }
@@ -194,7 +194,7 @@ bool checkRangeKeys ( KeyType startKey, KeyType endKey )
 void processCommands(CommandList* commands, Tree* tree) {
     Function f;
     StringList a;
-    for ( int i = 0; i < commands->size(); i++ ) {
+    for ( unsigned i = 0; i < commands->size(); i++ ) {
         f = commands->at(i).func;
         a = commands->at(i).args;
         switch(f) {

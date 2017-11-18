@@ -39,6 +39,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <warningLevel>2</warningLevel>
+        </ccTool>
       </compileType>
       <item path="Tree.cpp" ex="false" tool="1" flavor2="0">
       </item>

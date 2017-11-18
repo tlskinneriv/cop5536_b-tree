@@ -45,7 +45,7 @@ public:
     virtual ~TreeNode();
 //    properties
     bool leaf; //whether or not this node is a leaf
-    int maxKeys; //maximum number of keys this node can hold
+    unsigned maxKeys; //maximum number of keys this node can hold
     KeyContainer keys; // keys in this node
     ChildContainer children; //children in this node
     TreeNode* siblingLeft; //left sibling of this node
@@ -56,7 +56,7 @@ public:
      * @param key Key to insert into this node
      * @return Index of position where key should be inserted
      */
-    int findChildIndex(KeyType key);
+    unsigned findChildIndex(KeyType key);
     
     /**
      * Inserts a keyPair into this node
