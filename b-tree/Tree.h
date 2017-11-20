@@ -19,12 +19,12 @@
 
 class Tree {
 public:
-//    constructors/destructors
+//    constructor destructor functions
     /**
-     * Initializes a tree with the degree specified in 'degree'
-     * @param degree Degree of tree to initialize
+     * Initializes a tree with the order specified in 'order'
+     * @param order Order of tree to initialize
      */
-    Tree(int degree);
+    Tree(int order);
     
     /**
      * Destroys this tree
@@ -66,7 +66,7 @@ public:
      */
     void printData();
 private:
-    //    properties
+//    properties
     TreeNode* root; // root node of the tree
 };
 

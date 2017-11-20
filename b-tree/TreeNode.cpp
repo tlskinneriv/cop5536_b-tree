@@ -17,15 +17,15 @@
 #include <iostream>
 #include <math.h>
 
-TreeNode::TreeNode(int degree) {
+TreeNode::TreeNode(int order) {
     leaf = true; // start node as leaf
     keys.clear();
-    keys.reserve(degree-1);
+    keys.reserve(order-1);
     children.clear();
-    children.reserve(degree);
+    children.reserve(order);
     siblingLeft = NULL;
     siblingRight = NULL;
-    maxKeys = (unsigned)degree-1;
+    maxKeys = (unsigned)order-1;
 }
 
 TreeNode::~TreeNode() {
@@ -174,9 +174,9 @@ KeyContainer* TreeNode::search(KeyType startKey, KeyType endKey) {
 }
 
 /**
- * Generates string with a number of spaceses for print at different levels 
+ * Generates string with a number of spaces for print at different levels 
  * (for debug)
- * @param count Number of spacesw to gerenate
+ * @param count Number of spaces to generate
  * @return String with spaces in it
  */
 std::string tabs(int count) {

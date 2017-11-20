@@ -34,10 +34,10 @@ class TreeNode {
 public:
 //    constructor destructor functions
     /**
-     * Initializes a tree node with the degree specified in 'degree'
-     * @param degree Degree of tree node to initialize
+     * Initializes a tree node with the order specified in 'order'
+     * @param order Order of tree node to initialize
      */
-    TreeNode(int degree);
+    TreeNode(int order);
     
     /**
      * Destroys this TreeNode and its children (if there are any)

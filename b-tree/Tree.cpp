@@ -15,14 +15,14 @@
 #include "Tree.h"
 #include <iostream>
 
-Tree::Tree(int degree) {
-    if ( degree < 3 ) {
-        std::cout << "Degree " << degree << " is less than the minimum degree 3. Aborting." << std::endl;
-        std::exit(5); //exit code 5 is wrong degree; minimum degree 3 for B-Tree
+Tree::Tree(int order) {
+    if ( order < 3 ) {
+        std::cout << "Order " << order << " is less than the minimum order 3. Aborting." << std::endl;
+        std::exit(5); //exit code 5 is wrong order; minimum order 3 for B-Tree
         root = NULL;
     }
     else
-        root = new TreeNode(degree);
+        root = new TreeNode(order);
 }
 
 Tree::~Tree() {

@@ -81,15 +81,15 @@ StringList splitString(const std::string& str, char delim){
 }
 
 /**
- * Gets the degree from 'input'
+ * Gets the order from 'input'
  * @param input Input read from file
- * @return Degree read from file
+ * @return Order read from file
  */
-int parseDegree(StringList* input) {
-    int degree;
-    std::istringstream(input->at(0)) >> degree;
+int parseOrder(StringList* input) {
+    int order;
+    std::istringstream(input->at(0)) >> order;
     input->erase(input->begin());
-    return degree;
+    return order;
 }
 
 /**
@@ -240,10 +240,10 @@ void processCommands(CommandList* commands, Tree* tree) {
 
 
 /**
- * Run commands passed in an input file against a B+-Tree with degree specified 
+ * Run commands passed in an input file against a B+-Tree with order specified 
  * by the input file. All command results are output to std::cout, which has 
  * been redirected to the output file './output_file.txt'. An input file with valid 
- * degree and commands must be input for this program to successfully output 
+ * order and commands must be input for this program to successfully output 
  * data.
  * @return Any value other than '0' is considered an error. The following return
  * values are known errors:
@@ -252,7 +252,7 @@ void processCommands(CommandList* commands, Tree* tree) {
  * 2) Input file cannot be opened
  * 3) Input file is not formatted correctly (see error output)
  * 4) The output file cannot be opened
- * 5) The degree specified in the input file is too small
+ * 5) The order specified in the input file is too small
  * 6) No valid commands were specified in the input file
  */
 int main(int argc, char** argv) {
@@ -271,7 +271,7 @@ int main(int argc, char** argv) {
     else if ( input->size() < 1 ) {
         std::cerr << "Input file not formatted correctly. File should have the format:" << std::endl;
         std::cerr << "inputFile.txt" << std::endl;
-        std::cerr << "  <degreeOfTree>" << std::endl;
+        std::cerr << "  <orderOfTree>" << std::endl;
         std::cerr << "  <command>" << std::endl;
         std::cerr << "  [<command>]..." << std::endl;
         return 3;
@@ -289,14 +289,14 @@ int main(int argc, char** argv) {
         return 4;
     }
     
-    // parse degree of tree from input
-    int treeDegree = parseDegree(input);
-    if ( treeDegree <= 0 ) {
-        std::cerr << "Tree degree not specified or is invalid" << std::endl;
+    // parse order of tree from input
+    int treeOrder = parseOrder(input);
+    if ( treeOrder <= 0 ) {
+        std::cerr << "Tree order not specified or is invalid" << std::endl;
         return 5;
     }
-    if ( treeDegree < 3 ) {
-        std::cerr << "Tree degree \"" << treeDegree << "\" is less than the minimum \"3\"" << std::endl;
+    if ( treeOrder < 3 ) {
+        std::cerr << "Tree order \"" << treeOrder << "\" is less than the minimum \"3\"" << std::endl;
         return 5;
     }
     
@@ -309,7 +309,7 @@ int main(int argc, char** argv) {
 //    printCommands(commands);
     
     // if we're here, everything checks out, and we can continue
-    Tree* tree = new Tree(treeDegree);
+    Tree* tree = new Tree(treeOrder);
     processCommands(commands, tree);
     
     //show output here
